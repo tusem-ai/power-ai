@@ -1,3 +1,4 @@
+import './styles.css';
 import React, { useState, useEffect } from "react";
 import { auth, loginWithGoogle, logoutUser } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
