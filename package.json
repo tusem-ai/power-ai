@@ -1,15 +1,13 @@
 {
   "name": "power-akademi-chatbot",
   "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "node server.js"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "firebase": "^12.17.1",
-    "mammoth": "^1.12.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "mammoth": "^1.12.1"
   }
 }
