@@ -52,7 +52,7 @@ export default function App() {
         text: "Power AI yanıtı: Mesajınızı aldım!",
         sender: "bot"
       };
-      setMessages((prev) => [...prev, botMessage]);
+      setMessages((prev) => [...prev, prev ? [...prev, botMessage] : [botMessage]]);
     }, 1000);
   };
 
@@ -64,46 +64,100 @@ export default function App() {
     );
   }
 
-  // GİRİŞ YAPILMAMIŞSA: KVKK Uyumlu Koyu Tema Login Ekranı
+  // GİRİŞ YAPILMAMIŞSA: Şık Arka Plan Görselli & Tanıtımlı Ana Giriş Ekranı
   if (!user) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", backgroundColor: "#0b0f19", fontFamily: "sans-serif", padding: "20px" }}>
-        <div style={{ backgroundColor: "#0f172a", padding: "40px", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 10px 25px rgba(0,0,0,0.5)", maxWidth: "400px", width: "100%", textAlign: "center" }}>
-          
-          {/* Mavi/Beyaz Gradyan Başlık */}
-          <h1 style={{ background: "linear-gradient(135deg, #ffffff 30%, #60a5fa 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: "8px", fontWeight: "800" }}>
-            Power AI
-          </h1>
-          <p style={{ color: "#94a3b8", marginBottom: "24px" }}>Sohbete başlamak için giriş yapın</p>
-
-          <button
-            onClick={handleLogin}
-            style={{
-              width: "100%",
-              padding: "12px",
-              backgroundColor: "#2563eb",
-              color: "#fff",
-              border: "none",
-              borderRadius: "8px",
-              fontSize: "16px",
-              fontWeight: "bold",
-              cursor: "pointer",
-              marginBottom: "20px",
-              transition: "0.2s"
-            }}
-          >
-            Google ile Giriş Yap
-          </button>
-
-          <div style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.4", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "15px" }}>
-            🔒 <strong style={{ color: "#f8fafc" }}>KVKK & Gizlilik Bildirimi:</strong> Google ile giriş yaptığınızda e-posta adresiniz, adınız veya kişisel verileriniz veritabanımızda saklanmaz. Oturumunuz tamamen anonim kimlik kodu üzerinden yürütülür.
+      <div style={{ 
+        minHeight: "100vh", 
+        backgroundColor: "#0b0f19", 
+        backgroundImage: `linear-gradient(to bottom, rgba(11, 15, 25, 0.75), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        fontFamily: "system-ui, -apple-system, sans-serif",
+        color: "#f3f4f6",
+        display: "flex",
+        flexDirection: "column"
+      }}>
+        {/* ÜST BAR */}
+        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 40px", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1.4rem", fontWeight: "800", color: "#60a5fa" }}>
+            <span>⚡</span>
+            <span>Power AI</span>
           </div>
-        </div>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <select style={{ backgroundColor: "rgba(30, 41, 59, 0.8)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", padding: "8px 12px", borderRadius: "8px" }}>
+              <option value="tr">TR Türkçe</option>
+              <option value="en">EN English</option>
+            </select>
+            <button onClick={handleLogin} style={{ padding: "8px 16px", backgroundColor: "#1e293b", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}>
+              Giriş Yap
+            </button>
+            <button onClick={handleLogin} style={{ padding: "8px 16px", backgroundColor: "#2563eb", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}>
+              Kayıt Ol
+            </button>
+          </div>
+        </header>
+
+        {/* ORTA TANITIM ALANI */}
+        <main style={{ maxwidth: "1000px", margin: "40px auto", padding: "0 20px", textAlign: "center", flex: 1 }}>
+          <h1 style={{ background: "linear-gradient(135deg, #ffffff 30%, #60a5fa 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontSize: "2.8rem", fontWeight: "800", marginBottom: "12px" }}>
+            Power AI'a Hoş Geldiniz!
+          </h1>
+          <p style={{ fontSize: "1.2rem", color: "#94a3b8", marginBottom: "40px" }}>
+            Yapay zekanın tüm gücü tek bir platformda.
+          </p>
+
+          {/* KARTLAR */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", textAlign: "left", marginBottom: "40px" }}>
+            <div style={{ background: "rgba(15, 23, 42, 0.75)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", padding: "24px", backdropFilter: "blur(12px)" }}>
+              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>🖼️ 📄 📹</div>
+              <h3 style={{ color: "#60a5fa", marginBottom: "8px" }}>Tüm Medyalarınızı Tek Noktadan Analiz Edin</h3>
+              <p style={{ color: "#cbd5e1", fontSize: "0.95rem" }}>Görselleri, videoları ve dokümanları tek tıkla yükleyin; Power AI sizin için özetlesin ve analiz etsin.</p>
+            </div>
+
+            <div style={{ background: "rgba(15, 23, 42, 0.75)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", padding: "24px", backdropFilter: "blur(12px)" }}>
+              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>🎵 ☁️</div>
+              <h3 style={{ color: "#60a5fa", marginBottom: "8px" }}>Sekmeler Arasında Kaybolmaya Son</h3>
+              <p style={{ color: "#cbd5e1", fontSize: "0.95rem" }}>+ menüsü sayesinde Google Drive dosyalarınıza doğrudan erişin, Suno AI entegrasyonu ile müzik üretin.</p>
+            </div>
+
+            <div style={{ background: "rgba(15, 23, 42, 0.75)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", padding: "24px", backdropFilter: "blur(12px)" }}>
+              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>🎨 🌐 🛡️</div>
+              <h3 style={{ color: "#60a5fa", marginBottom: "8px" }}>Tamamen Size Özel Arayüz ve Güvenlik</h3>
+              <p style={{ color: "#cbd5e1", fontSize: "0.95rem" }}>30'dan fazla dil desteği ve zengin renk temalarıyla çalışma alanınızı özelleştirin. Verileriniz güvende.</p>
+            </div>
+          </div>
+
+          {/* GOOGLE İLE GİRİŞ BUTONU VE KVKK METNİ */}
+          <div style={{ maxwidth: "420px", margin: "0 auto", background: "rgba(15, 23, 42, 0.85)", padding: "30px", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(16px)" }}>
+            <button
+              onClick={handleLogin}
+              style={{
+                width: "100%",
+                padding: "14px",
+                backgroundColor: "#2563eb",
+                color: "#fff",
+                border: "none",
+                borderRadius: "10px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                marginBottom: "16px"
+              }}
+            >
+              Google ile Giriş Yap
+            </button>
+            <div style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.4", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "12px" }}>
+              🔒 <strong>KVKK & Gizlilik Bildirimi:</strong> Google ile giriş yaptığınızda kişisel verileriniz saklanmaz. Oturumunuz tamamen anonim kimlik kodu üzerinden yürütülür.
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
 
-  // GİRİŞ YAPILMIŞSA: Ana Koyu Tema Chat Arayüzü
+  // GİRİŞ YAPILMIŞSA: Ana Chat Arayüzü
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", fontFamily: "sans-serif", backgroundColor: "#0b0f19", color: "#f3f4f6" }}>
       {/* Üst Bar */}
