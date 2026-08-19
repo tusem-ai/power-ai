@@ -419,3 +419,51 @@ div[class*="input"] button:first-child {
   background-color: #1e293b !important; /* AI mesaj rengi */
   color: #f8fafc !important;
 }
+/* ==========================================================
+   POWER AI - PROFESYONEL LOGO VE BAŞLIK İYİLEŞTİRMESİ
+   ========================================================== */
+
+/* Logo kapsayıcısı ve metin parlaması */
+.logo, [class*="logo"] {
+  font-weight: 800 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: -0.3px !important;
+  color: #60a5fa !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.5) !important; /* Mavi neon parlama */
+}
+
+/* Giriş ekranı üstündeki hoş geldiniz başlığı */
+.welcome-title, h1 {
+  font-size: 2.2rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+  margin-bottom: 8px !important;
+}
+/* ==========================================================
+   POWER AI - GÜVENLİ H1 BAŞLIK GRADYANI
+   ========================================================== */
+
+h1, .welcome-title {
+  background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block !important; /* Gradient kesilmesini önler */
+  font-weight: 800 !important;
+}
+/* ==========================================================
+   POWER AI - CANLI BAŞLIK VE IŞIKLI METİNLER
+   ========================================================== */
+
+h1, .hero-title, [class*="title"] {
+  background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px !important;
+  display: inline-block !important; /* Gradient kesilmesini önler */
+}
