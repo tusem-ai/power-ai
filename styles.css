@@ -168,3 +168,73 @@ body.theme-rose .input-wrapper, body.theme-rose .ai-message { background-color: 
 .tab-pane { display: none; flex-direction: column; gap: 12px; }
 .tab-pane.active { display: flex; }
 .tab-pane input, .tab-pane select { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: transparent; color: inherit; }
+/* Power AI - Modern Görsel Güncellemesi */
+
+/* 1. Arka Plana Canlı Yapay Zeka Işıltısı (Glow Effect) */
+body {
+  background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 70%) !important;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 2. Ortadaki Karşılama Kartına Cam Efekti (Glassmorphism) ve Neon Kenarlık */
+.hero-card, [class*="card"] {
+  background: rgba(30, 41, 59, 0.6) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+              0 0 20px rgba(37, 99, 235, 0.15) !important;
+  border-radius: 20px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.hero-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 
+              0 0 30px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* 3. Başlık ve Işıklı Metinler */
+h1, .hero-title {
+  background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* 4. Butonlara Canlı Mavi-Mor Gradient & Parlama */
+button, .btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
+  transition: all 0.2s ease !important;
+}
+
+button:hover, .btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* 5. Alt Kaydırma Noktaları (Dots) Neon Mavi */
+.dot.active, [class*="dot"][class*="active"] {
+  background-color: #3b82f6 !important;
+  box-shadow: 0 0 10px #3b82f6 !important;
+  width: 24px !important;
+  border-radius: 10px !important;
+}
