@@ -1,469 +1,128 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.2s, color 0.2s; }
-body { height: 100vh; overflow: hidden; }
-
-/* KARŞILAMA VE TANITIM PORTALI STİLLERİ */
-.landing-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: #f8fafc; display: flex; flex-direction: column; z-index: 800;
-}
-.landing-header {
-  height: 70px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.landing-brand h2 { font-size: 24px; font-weight: 800; color: #3b82f6; }
-.landing-nav { display: flex; align-items: center; gap: 12px; }
-.lang-dropdown {
-  background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 12px; border-radius: 8px; outline: none; cursor: pointer;
-}
-.lang-dropdown option { background: #0f172a; color: #fff; }
-.btn-outline { background: transparent; border: 1px solid #3b82f6; color: #3b82f6; }
-.btn-outline:hover { background: rgba(59, 130, 246, 0.1); }
-.btn-primary-landing { background: #3b82f6; color: #fff; border: none; font-weight: 600; }
-.btn-primary-landing:hover { background: #2563eb; }
-
-.landing-hero {
-  flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
-  padding: 20px; text-align: center;
-}
-.hero-text-wrapper h1 { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
-.hero-text-wrapper p { font-size: 18px; opacity: 0.8; margin-bottom: 40px; }
-
-/* DÖNGÜSEL KARTLAR (CAROUSEL) STİLİ */
-.carousel-container { width: 100%; max-width: 600px; height: 220px; position: relative; }
-.carousel-card {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px; padding: 30px; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; backdrop-filter: blur(10px);
-  opacity: 0; visibility: hidden; transition: all 0.5s ease-in-out; transform: translateY(10px);
-}
-.carousel-card.active { opacity: 1; visibility: visible; transform: translateY(0); }
-.card-icon { font-size: 36px; margin-bottom: 12px; }
-.carousel-card h3 { font-size: 20px; margin-bottom: 8px; color: #60a5fa; }
-.carousel-card p { font-size: 14px; opacity: 0.85; line-height: 1.5; }
-
-.carousel-dots { display: flex; gap: 8px; margin-top: 24px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); cursor: pointer; }
-.dot.active { background: #3b82f6; width: 24px; border-radius: 10px; }
-
-/* TEMA TANIMLARI */
-body.theme-light { background-color: #f8fafc; color: #0f172a; }
-body.theme-light .sidebar, body.theme-light .chat-header, body.theme-light .attach-menu, body.theme-light .dropdown-menu, body.theme-light .modal-card { background-color: #ffffff; color: #0f172a; border-color: #e2e8f0; }
-body.theme-light .input-wrapper, body.theme-light .ai-message { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; }
-
-body.theme-dark { background-color: #0f172a; color: #f8fafc; }
-body.theme-dark .sidebar, body.theme-dark .chat-header, body.theme-dark .attach-menu, body.theme-dark .dropdown-menu, body.theme-dark .modal-card { background-color: #1e293b; color: #f8fafc; border-color: #334155; }
-body.theme-dark .input-wrapper, body.theme-dark .ai-message { background-color: #1e293b; border-color: #334155; color: #f8fafc; }
-
-body.theme-emerald { background-color: #064e3b; color: #ecfdf5; }
-body.theme-emerald .sidebar, body.theme-emerald .chat-header, body.theme-emerald .attach-menu, body.theme-emerald .dropdown-menu, body.theme-emerald .modal-card { background-color: #047857; color: #ecfdf5; border-color: #059669; }
-body.theme-emerald .input-wrapper, body.theme-emerald .ai-message { background-color: #065f46; border-color: #059669; color: #ecfdf5; }
-
-body.theme-purple { background-color: #3b0764; color: #faf5ff; }
-body.theme-purple .sidebar, body.theme-purple .chat-header, body.theme-purple .attach-menu, body.theme-purple .dropdown-menu, body.theme-purple .modal-card { background-color: #581c87; color: #faf5ff; border-color: #6b21a8; }
-body.theme-purple .input-wrapper, body.theme-purple .ai-message { background-color: #4c1d95; border-color: #6b21a8; color: #faf5ff; }
-
-body.theme-amber { background-color: #451a03; color: #fffbeb; }
-body.theme-amber .sidebar, body.theme-amber .chat-header, body.theme-amber .attach-menu, body.theme-amber .dropdown-menu, body.theme-amber .modal-card { background-color: #78350f; color: #fffbeb; border-color: #92400e; }
-body.theme-amber .input-wrapper, body.theme-amber .ai-message { background-color: #7c2d12; border-color: #92400e; color: #fffbeb; }
-
-body.theme-ocean { background-color: #0c4a6e; color: #f0f9ff; }
-body.theme-ocean .sidebar, body.theme-ocean .chat-header, body.theme-ocean .attach-menu, body.theme-ocean .dropdown-menu, body.theme-ocean .modal-card { background-color: #0369a1; color: #f0f9ff; border-color: #0284c7; }
-body.theme-ocean .input-wrapper, body.theme-ocean .ai-message { background-color: #075985; border-color: #0284c7; color: #f0f9ff; }
-
-body.theme-rose { background-color: #4c0519; color: #fff1f2; }
-body.theme-rose .sidebar, body.theme-rose .chat-header, body.theme-rose .attach-menu, body.theme-rose .dropdown-menu, body.theme-rose .modal-card { background-color: #9f1239; color: #fff1f2; border-color: #be123c; }
-body.theme-rose .input-wrapper, body.theme-rose .ai-message { background-color: #881337; border-color: #be123c; color: #fff1f2; }
-
-/* EKRAN YAPISI */
-.app-container { display: flex; height: 100vh; width: 100vw; }
-.sidebar { width: 260px; display: flex; flex-direction: column; border-right: 1px solid #e2e8f0; }
-.sidebar-header { padding: 16px; border-bottom: 1px solid rgba(0,0,0,0.08); }
-.brand-title h3 { font-size: 18px; font-weight: 700; color: #2563eb; }
-.brand-title p { font-size: 11px; opacity: 0.7; }
-
-.chat-list { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
-.chat-item { padding: 10px 12px; border-radius: 8px; font-size: 14px; cursor: pointer; border: 1px solid transparent; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.chat-item:hover { background: rgba(37, 99, 235, 0.1); }
-.chat-item.active { background: rgba(37, 99, 235, 0.2); border-color: #2563eb; font-weight: 600; }
-
-.sidebar-footer { padding: 16px; border-top: 1px solid rgba(0,0,0,0.08); }
-
-.chat-container { flex: 1; display: flex; flex-direction: column; }
-.chat-header { height: 60px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
-
-/* SAĞ ÜST GERÇEK PROFiL LOGOSU */
-.profile-container { position: relative; }
-.profile-avatar-btn { cursor: pointer; display: flex; align-items: center; }
-.profile-avatar-btn img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #2563eb; transition: transform 0.2s; }
-.profile-avatar-btn img:hover { transform: scale(1.08); }
-
-.user-info-header { padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
-.user-info-header strong { font-size: 14px; }
-.user-info-header span { font-size: 12px; opacity: 0.7; }
-
-/* MENÜLER VE AÇILIR LİSTELER */
-.dropdown-menu, .attach-menu { 
-  display: none; 
-  position: absolute; 
-  border: 1px solid #cbd5e1; 
-  border-radius: 10px; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25); 
-  z-index: 999; 
-  flex-direction: column; 
-}
-.dropdown-menu.active, .attach-menu.active { display: flex !important; }
-
-.dropdown-menu { right: 0; top: 50px; width: 220px; }
-
-/* + BUTONU VE ÜSTÜNDE AÇILAN MENÜ */
-.attach-wrapper { position: relative; display: flex; align-items: center; }
-.attach-menu { 
-  bottom: 45px; 
-  left: 0; 
-  width: 230px; 
-  padding: 6px 0;
-}
-
-.dropdown-item, .menu-item { padding: 10px 14px; text-decoration: none; font-size: 14px; border: none; background: transparent; text-align: left; cursor: pointer; color: inherit; display: flex; align-items: center; gap: 8px; width: 100%; }
-.dropdown-item:hover, .menu-item:hover { background: rgba(37, 99, 235, 0.15); }
-
-/* MESAJ BALONCUKLARI */
-.chat-messages { flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
-.message { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 15px; line-height: 1.5; }
-.user-message { align-self: flex-end; background-color: #2563eb; color: white; }
-.ai-message { align-self: flex-start; border: 1px solid #cbd5e1; }
-.ai-message strong { display: block; margin-bottom: 4px; color: #2563eb; font-size: 13px; }
-
-.chat-input-container { padding: 16px 24px; }
-.input-wrapper { display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 24px; padding: 6px 12px; gap: 8px; }
-#messageInput { flex: 1; background: transparent; border: none; outline: none; color: inherit; padding: 8px; }
-.icon-btn { background: transparent; border: none; color: inherit; font-size: 20px; cursor: pointer; padding: 4px 8px; }
-
-.btn { background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 18px; cursor: pointer; font-size: 14px; }
-.btn-primary { width: 100%; border-radius: 8px; }
-.btn-danger { background: #dc2626; color: white; width: 100%; border-radius: 8px; padding: 10px; border:none; cursor:pointer;}
-.btn-settings { width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; background: rgba(0,0,0,0.05); color: inherit; border: none; text-align: left; }
-.btn-link { display: block; text-decoration: none; color: #2563eb; font-size: 14px; padding: 6px 0; font-weight: 600; }
-
-.auth-overlay, .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-.modal-overlay { display: none; }
-.modal-overlay.active { display: flex !important; }
-
-.auth-card { width: 380px; padding: 24px; border-radius: 12px; background: #ffffff; color: #0f172a; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-.auth-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.auth-card form { display: flex; flex-direction: column; gap: 12px; }
-.auth-card input { padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; }
-
-.modal-card { width: 680px; border-radius: 12px; border: 1px solid; overflow: hidden; display: flex; flex-direction: column; }
-.modal-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.1); }
-.close-btn { background: transparent; border: none; color: inherit; font-size: 24px; cursor: pointer; }
-.modal-body { display: flex; height: 400px; }
-.settings-sidebar { width: 200px; border-right: 1px solid rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-.settings-tab-btn { padding: 12px; background: transparent; border: none; color: inherit; text-align: left; cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.03); }
-.settings-tab-btn.active { background: #2563eb; color: #fff; }
-.settings-content { flex: 1; padding: 20px; overflow-y: auto; }
-.tab-pane { display: none; flex-direction: column; gap: 12px; }
-.tab-pane.active { display: flex; }
-.tab-pane input, .tab-pane select { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: transparent; color: inherit; }
-/* Power AI - Modern Görsel Güncellemesi */
-
-/* 1. Arka Plana Canlı Yapay Zeka Işıltısı (Glow Effect) */
-body {
-  background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 70%) !important;
-  position: relative;
-  overflow-x: hidden;
-}
-
-body::before {
-  content: '';
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 2. Ortadaki Karşılama Kartına Cam Efekti (Glassmorphism) ve Neon Kenarlık */
-.hero-card, [class*="card"] {
-  background: rgba(30, 41, 59, 0.6) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
-              0 0 20px rgba(37, 99, 235, 0.15) !important;
-  border-radius: 20px !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-}
-
-.hero-card:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 
-              0 0 30px rgba(37, 99, 235, 0.3) !important;
-}
-
-/* 3. Başlık ve Işıklı Metinler */
-h1, .hero-title {
-  background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.5px !important;
-}
-
-/* 4. Butonlara Canlı Mavi-Mor Gradient & Parlama */
-button, .btn-primary {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-  border: none !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
-  transition: all 0.2s ease !important;
-}
-
-button:hover, .btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important;
-  transform: translateY(-1px) !important;
-}
-
-/* 5. Alt Kaydırma Noktaları (Dots) Neon Mavi */
-.dot.active, [class*="dot"][class*="active"] {
-  background-color: #3b82f6 !important;
-  box-shadow: 0 0 10px #3b82f6 !important;
-  width: 24px !important;
-  border-radius: 10px !important;
-}
-
-
 /* ==========================================================
-   POWER AI - GÜVENLİ ARAYÜZ YENİLEME (EN ALTA EKLENEN KISIM)
+   POWER AI - SIFIRDAN TAM DÜZELTİLMİŞ CSS (GÜVENLİ YAPIDA)
    ========================================================== */
 
-/* Arka plana yapay zeka temalı modern renk ve ışık ekleme */
+/* 1. TEMEL VE GENEL DÜZEN */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background: #0b0f19 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #0b0f19 !important;
   background-image: 
-    radial-gradient(at 50% 20%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
-    radial-gradient(at 80% 80%, rgba(124, 58, 237, 0.15) 0px, transparent 50%) !important;
+    radial-gradient(at 50% 20%, rgba(37, 99, 235, 0.2) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(124, 58, 237, 0.12) 0px, transparent 50%) !important;
   background-attachment: fixed !important;
+  color: #f3f4f6;
+  min-height: 100vh;
 }
 
-/* Karşılama kutusunu cam (glassmorphism) ve neon ışıklı yapma */
-div[class*="card"], div[class*="slide"], div[class*="box"] {
-  background: rgba(17, 24, 39, 0.75) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
-              0 0 30px rgba(37, 99, 235, 0.2) !important;
-  border-radius: 20px !important;
-}
-
-/* Başlığa canlı mavi/beyaz gradyan renk verme */
-h1 {
-  background: linear-gradient(135deg, #ffffff 40%, #60a5fa 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
-/* ==========================================================
-   POWER AI - ÖZEL ARAYÜZ DÜZELTMELERİ (GÜVENLİ EKLEME)
-   ========================================================== */
-
-/* 1. Ayarlar Penceresi Okunabilirlik ve Netlik Düzeltmesi */
-.modal, [class*="modal"], [class*="settings"] {
-  background-color: #111827 !important;
-  color: #ffffff !important;
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-.modal *, [class*="modal"] * {
-  color: #f3f4f6 !important; /* Tüm yazıları net beyaz yapar */
-  opacity: 1 !important;
-}
-
-.modal input, .modal select {
-  background-color: #1f2937 !important;
-  color: #ffffff !important;
-  border: 1px solid #374151 !important;
-}
-
-/* 2. Sohbet Giriş Alanındaki (+) Butonu Mavi Arka Plan Temizleme */
-.input-container button, 
-[class*="input"] button, 
-button[class*="plus"],
-.chat-input-box button {
-  background-color: transparent !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.input-container, [class*="input-wrapper"], .chat-input-box {
-  background-color: #1f2937 !important; /* İnput alanının arkasını koyu yapar */
-}
-
-/* 3. Logo ve Başlık Tasarımı */
-.logo, [class*="logo"] {
-  font-weight: 900 !important;
-  letter-spacing: 0.5px !important;
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
-
-/* 4. Mesaj Baloncuklarının Rengi */
-.message.user, [class*="user-message"] {
-  background: #2563eb !important; /* Kullanıcı mesaj rengi */
-  color: #ffffff !important;
-}
-
-.message.bot, [class*="bot-message"], [class*="ai-message"] {
-  background: #1f2937 !important; /* AI mesaj rengi */
-  color: #f3f4f6 !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-/* ==========================================================
-   POWER AI - KAPSAMLI DÜZELTME (TÜM ELEMANLARI YAKALAR)
-   ========================================================== */
-
-/* 1. Ayarlar Penceresi Parlaklık ve Yazı Düzeltmesi */
-div[class*="modal"], div[class*="settings"], div[class*="dialog"] {
-  background-color: #0f172a !important;
-  color: #ffffff !important;
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-div[class*="modal"] *, div[class*="settings"] * {
-  color: #ffffff !important; /* Yazıları görünür beyaz yapar */
-  opacity: 1 !important;
-}
-
-div[class*="modal"] input, div[class*="modal"] select {
-  background-color: #1e293b !important;
-  color: #ffffff !important;
-  border: 1px solid #334155 !important;
-}
-
-/* 2. Sohbet Giriş Alanı ve (+) Butonu Arka Plan Temizleme */
-div[class*="input"] button, form button {
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-div[class*="input-container"], div[class*="input-box"], footer {
-  background-color: #1e293b !important;
-}
-
-/* 3. Mesaj Balonları Renk Ayarı */
-div[class*="user"], div[class*="sent"] {
-  background-color: #2563eb !important;
-  color: #ffffff !important;
-}
-
-div[class*="bot"], div[class*="received"], div[class*="ai"] {
-  background-color: #1e293b !important;
-  color: #f8fafc !important;
-}
-/* ==========================================================
-   POWER AI - KESİN ÇÖZÜM (MEVCUT KODLARI BOZMADAN EZER)
-   ========================================================== */
-
-/* 1. Ayarlar Modalı / Bulanıklık ve Okunmama Sorunu */
-iframe, dialog, [role="dialog"], .modal-overlay, .settings-modal {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-[class*="modal"] *, [class*="setting"] *, [class*="dialog"] * {
-  color: #ffffff !important;
-  text-shadow: none !important;
-  opacity: 1 !important;
-}
-
-[class*="modal"] select, [class*="setting"] select,
-[class*="modal"] input, [class*="setting"] input {
-  background-color: #1e293b !important;
-  color: #ffffff !important;
-  border: 1px solid #475569 !important;
-}
-
-/* 2. Chat Giriş Alanındaki (+) Butonunun Mavi Kutusunu Kaldırma */
-button[class*="plus"], 
-button[class*="add"], 
-.chat-input button:first-child,
-div[class*="input"] button:first-child {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* 3. Sohbet Baloncukları Renkleri */
-[class*="message"][class*="user"], [class*="chat-bubble-user"] {
-  background-color: #2563eb !important; /* Kullanıcı mesaj rengi */
-  color: #ffffff !important;
-}
-
-[class*="message"][class*="bot"], [class*="chat-bubble-bot"], [class*="message"][class*="ai"] {
-  background-color: #1e293b !important; /* AI mesaj rengi */
-  color: #f8fafc !important;
-}
-/* ==========================================================
-   POWER AI - PROFESYONEL LOGO VE BAŞLIK İYİLEŞTİRMESİ
-   ========================================================== */
-
-/* Logo kapsayıcısı ve metin parlaması */
-.logo, [class*="logo"] {
+/* 2. LOGO VE BAŞLIK AYARLARI */
+.logo, [class*="logo"], header [class*="title"] {
   font-weight: 800 !important;
-  font-size: 1.25rem !important;
-  letter-spacing: -0.3px !important;
+  font-size: 1.3rem !important;
   color: #60a5fa !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
-  text-shadow: 0 0 15px rgba(59, 130, 246, 0.5) !important; /* Mavi neon parlama */
+  text-shadow: 0 0 12px rgba(59, 130, 246, 0.4) !important;
 }
 
-/* Giriş ekranı üstündeki hoş geldiniz başlığı */
-.welcome-title, h1 {
-  font-size: 2.2rem !important;
-  font-weight: 800 !important;
-  color: #ffffff !important;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
-  margin-bottom: 8px !important;
-}
-/* ==========================================================
-   POWER AI - GÜVENLİ H1 BAŞLIK GRADYANI
-   ========================================================== */
-
-h1, .welcome-title {
-  background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  display: inline-block !important; /* Gradient kesilmesini önler */
-  font-weight: 800 !important;
-}
-/* ==========================================================
-   POWER AI - CANLI BAŞLIK VE IŞIKLI METİNLER
-   ========================================================== */
-
-h1, .hero-title, [class*="title"] {
+h1, .welcome-title, .hero-title {
   background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   font-weight: 800 !important;
   letter-spacing: -0.5px !important;
-  display: inline-block !important; /* Gradient kesilmesini önler */
+}
+
+/* 3. AYARLAR PENCERESİ VE MODAL DÜZELTMELERİ (BULANIKLIK & YAZI OKUNABİLİRLİĞİ) */
+div[class*="modal"], 
+div[class*="settings"], 
+div[class*="dialog"],
+.modal-overlay,
+.settings-modal {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Ayarlar içindeki tüm metinleri ve etiketleri net beyaz yapar */
+div[class*="modal"] *, 
+div[class*="settings"] *, 
+div[class*="dialog"] * {
+  color: #f8fafc !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+/* Ayarlar menüsündeki açılır kutular (select) ve inputlar */
+div[class*="modal"] select, 
+div[class*="settings"] select,
+div[class*="modal"] input, 
+div[class*="settings"] input {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border: 1px solid #475569 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+}
+
+/* 4. SOHBET SAYFASI VE GİRİŞ ALANI (+) BUTONU DÜZELTMELERİ */
+/* + Butonunun arkasındaki mavi kareyi ve mavi arka planı kaldırır */
+.input-container button,
+.chat-input button,
+div[class*="input"] button,
+button[class*="plus"],
+button[class*="add"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Sohbet yazma kutusunun genel arka planı */
+.input-container, 
+.chat-input, 
+div[class*="input-wrapper"], 
+div[class*="chat-input-box"] {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  border-radius: 12px !important;
+}
+
+/* 5. MESAJ BALONCUKLARI VE RENKLERİ */
+/* Kullanıcı Mesajı */
+[class*="message"][class*="user"], 
+[class*="chat-bubble-user"],
+div[class*="user-message"] {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-radius: 12px 12px 0px 12px !important;
+}
+
+/* AI / Bot Mesajı */
+[class*="message"][class*="bot"], 
+[class*="chat-bubble-bot"], 
+[class*="message"][class*="ai"],
+div[class*="bot-message"] {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px 12px 12px 0px !important;
+}
+
+/* 6. BUTONLAR VE DİĞER KART YAPILARI */
+.card, [class*="card"] {
+  background: rgba(17, 24, 39, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
 }
