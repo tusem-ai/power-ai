@@ -1,110 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Power AI Asistanı</title>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-
-  <!-- ÜST MENÜ & DİL SEÇİMİ -->
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; max-width: 1200px; margin: 0 auto;">
-    <div class="logo">
-      <span style="font-size: 1.5rem;">⚡</span>
-      <span>Power AI</span>
-    </div>
-    <div style="display: flex; gap: 12px; align-items: center;">
-      <select id="languageSelect">
-        <option value="tr">TR Türkçe</option>
-        <option value="en">EN English</option>
-      </select>
-      <button class="btn-secondary">Giriş Yap</button>
-      <button class="btn-primary">Kayıt Ol</button>
-    </div>
-  </header>
-
-  <!-- KARŞILAMA VE TANITIM -->
-  <main style="max-width: 1000px; margin: 40px auto; padding: 0 20px; text-align: center;">
-    <h1 class="hero-title">Power AI'a Hoş Geldiniz!</h1>
-    <p style="font-size: 1.2rem; color: #94a3b8; margin-top: 12px; margin-bottom: 48px;">
-      Yapay zekanın tüm gücü tek bir platformda.
-    </p>
-
-    <!-- ÖZELLİK KARTLARI -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; text-align: left;">
-      
-      <div class="card">
-        <div style="font-size: 2rem; margin-bottom: 12px;">🖼️ 📄 📹</div>
-        <h3 style="color: #60a5fa; margin-bottom: 8px; font-size: 1.2rem;">Tüm Medyalarınızı Tek Noktadan Analiz Edin</h3>
-        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">Görselleri, videoları ve dokümanları tek tıkla yükleyin; Power AI sizin için özetlesin ve analiz etsin.</p>
-      </div>
-
-      <div class="card">
-        <div style="font-size: 2rem; margin-bottom: 12px;">🎵 ☁️</div>
-        <h3 style="color: #60a5fa; margin-bottom: 8px; font-size: 1.2rem;">Sekmeler Arasında Kaybolmaya Son</h3>
-        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">+ menüsü sayesinde Google Drive dosyalarınıza doğrudan erişin, Suno AI entegrasyonu ile müzik üretin.</p>
-      </div>
-
-      <div class="card">
-        <div style="font-size: 2rem; margin-bottom: 12px;">🎨 🌐 🛡️</div>
-        <h3 style="color: #60a5fa; margin-bottom: 8px; font-size: 1.2rem;">Tamamen Size Özel Arayüz ve Güvenlik</h3>
-        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">30'dan fazla dil desteği ve zengin renk temalarıyla çalışma alanınızı özelleştirin. Verileriniz güvende.</p>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- AYARLAR PANELİ -->
-  <section class="card settings-modal" style="max-width: 1000px; margin: 40px auto; padding: 32px;">
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
-      <span style="font-size: 1.5rem;">⚙️</span>
-      <h2 style="margin: 0; font-size: 1.5rem;">Ayarlar</h2>
-    </div>
-
-    <!-- SEKMELER -->
-    <div style="display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;">
-      <button class="btn-secondary">⚙️ Genel</button>
-      <button class="btn-secondary">🎨 Görünüm</button>
-      <button class="btn-secondary">🔒 Gizlilik & Güvenlik</button>
-      <button class="btn-secondary">🔑 Şifreler</button>
-    </div>
-
-    <!-- AYAR SEÇENEKLERİ -->
-    <div style="display: flex; flex-direction: column; gap: 24px;">
-      <div>
-        <h4 style="margin-bottom: 8px; color: #94a3b8; font-weight: 600;">Sistem Dili Seçimi</h4>
-        <label style="margin-right: 12px;">Tercih Edilen Dil:</label>
-        <select>
-          <option>TR Türkçe</option>
-          <option>EN English</option>
-        </select>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom: 8px; color: #94a3b8; font-weight: 600;">Renk ve Temalar</h4>
-        <label style="margin-right: 12px;">Arayüz Teması:</label>
-        <select>
-          <option>Koyu (Gece Mavisi)</option>
-          <option>Aydınlık (Klasik Mavi)</option>
-        </select>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom: 12px; color: #94a3b8; font-weight: 600;">Gizlilik ve Veri Güvenliği</h4>
-        <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 12px;">Hesabınızın gizlilik ayarlarını doğrudan yönetmek için aşağıdaki yönlendirme bağlantılarını kullanabilirsiniz:</p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <a href="#" style="color: #60a5fa; text-decoration: none;">🥊 Google Gizlilik Kontrolü Yap</a>
-          <a href="#" style="color: #60a5fa; text-decoration: none;">📊 Veri ve Gizlilik Yönetimi</a>
-          <a href="#" style="color: #60a5fa; text-decoration: none;">🔑 Bağlı Uygulamalar ve İzinler</a>
-        </div>
-      </div>
-
-      <div style="margin-top: 12px;">
-        <button style="background-color: #ef4444 !important; border: none !important; color: white !important;">🗑️ Yerel Sohbet Geçmişini Temizle</button>
-      </div>
-    </div>
-  </section>
-
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Power AI</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
