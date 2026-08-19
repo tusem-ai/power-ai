@@ -1,0 +1,170 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.2s, color 0.2s; }
+body { height: 100vh; overflow: hidden; }
+
+/* KARŞILAMA VE TANITIM PORTALI STİLLERİ */
+.landing-overlay {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc; display: flex; flex-direction: column; z-index: 800;
+}
+.landing-header {
+  height: 70px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.landing-brand h2 { font-size: 24px; font-weight: 800; color: #3b82f6; }
+.landing-nav { display: flex; align-items: center; gap: 12px; }
+.lang-dropdown {
+  background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px; border-radius: 8px; outline: none; cursor: pointer;
+}
+.lang-dropdown option { background: #0f172a; color: #fff; }
+.btn-outline { background: transparent; border: 1px solid #3b82f6; color: #3b82f6; }
+.btn-outline:hover { background: rgba(59, 130, 246, 0.1); }
+.btn-primary-landing { background: #3b82f6; color: #fff; border: none; font-weight: 600; }
+.btn-primary-landing:hover { background: #2563eb; }
+
+.landing-hero {
+  flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 20px; text-align: center;
+}
+.hero-text-wrapper h1 { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
+.hero-text-wrapper p { font-size: 18px; opacity: 0.8; margin-bottom: 40px; }
+
+/* DÖNGÜSEL KARTLAR (CAROUSEL) STİLİ */
+.carousel-container { width: 100%; max-width: 600px; height: 220px; position: relative; }
+.carousel-card {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px; padding: 30px; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; backdrop-filter: blur(10px);
+  opacity: 0; visibility: hidden; transition: all 0.5s ease-in-out; transform: translateY(10px);
+}
+.carousel-card.active { opacity: 1; visibility: visible; transform: translateY(0); }
+.card-icon { font-size: 36px; margin-bottom: 12px; }
+.carousel-card h3 { font-size: 20px; margin-bottom: 8px; color: #60a5fa; }
+.carousel-card p { font-size: 14px; opacity: 0.85; line-height: 1.5; }
+
+.carousel-dots { display: flex; gap: 8px; margin-top: 24px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); cursor: pointer; }
+.dot.active { background: #3b82f6; width: 24px; border-radius: 10px; }
+
+/* TEMA TANIMLARI */
+body.theme-light { background-color: #f8fafc; color: #0f172a; }
+body.theme-light .sidebar, body.theme-light .chat-header, body.theme-light .attach-menu, body.theme-light .dropdown-menu, body.theme-light .modal-card { background-color: #ffffff; color: #0f172a; border-color: #e2e8f0; }
+body.theme-light .input-wrapper, body.theme-light .ai-message { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; }
+
+body.theme-dark { background-color: #0f172a; color: #f8fafc; }
+body.theme-dark .sidebar, body.theme-dark .chat-header, body.theme-dark .attach-menu, body.theme-dark .dropdown-menu, body.theme-dark .modal-card { background-color: #1e293b; color: #f8fafc; border-color: #334155; }
+body.theme-dark .input-wrapper, body.theme-dark .ai-message { background-color: #1e293b; border-color: #334155; color: #f8fafc; }
+
+body.theme-emerald { background-color: #064e3b; color: #ecfdf5; }
+body.theme-emerald .sidebar, body.theme-emerald .chat-header, body.theme-emerald .attach-menu, body.theme-emerald .dropdown-menu, body.theme-emerald .modal-card { background-color: #047857; color: #ecfdf5; border-color: #059669; }
+body.theme-emerald .input-wrapper, body.theme-emerald .ai-message { background-color: #065f46; border-color: #059669; color: #ecfdf5; }
+
+body.theme-purple { background-color: #3b0764; color: #faf5ff; }
+body.theme-purple .sidebar, body.theme-purple .chat-header, body.theme-purple .attach-menu, body.theme-purple .dropdown-menu, body.theme-purple .modal-card { background-color: #581c87; color: #faf5ff; border-color: #6b21a8; }
+body.theme-purple .input-wrapper, body.theme-purple .ai-message { background-color: #4c1d95; border-color: #6b21a8; color: #faf5ff; }
+
+body.theme-amber { background-color: #451a03; color: #fffbeb; }
+body.theme-amber .sidebar, body.theme-amber .chat-header, body.theme-amber .attach-menu, body.theme-amber .dropdown-menu, body.theme-amber .modal-card { background-color: #78350f; color: #fffbeb; border-color: #92400e; }
+body.theme-amber .input-wrapper, body.theme-amber .ai-message { background-color: #7c2d12; border-color: #92400e; color: #fffbeb; }
+
+body.theme-ocean { background-color: #0c4a6e; color: #f0f9ff; }
+body.theme-ocean .sidebar, body.theme-ocean .chat-header, body.theme-ocean .attach-menu, body.theme-ocean .dropdown-menu, body.theme-ocean .modal-card { background-color: #0369a1; color: #f0f9ff; border-color: #0284c7; }
+body.theme-ocean .input-wrapper, body.theme-ocean .ai-message { background-color: #075985; border-color: #0284c7; color: #f0f9ff; }
+
+body.theme-rose { background-color: #4c0519; color: #fff1f2; }
+body.theme-rose .sidebar, body.theme-rose .chat-header, body.theme-rose .attach-menu, body.theme-rose .dropdown-menu, body.theme-rose .modal-card { background-color: #9f1239; color: #fff1f2; border-color: #be123c; }
+body.theme-rose .input-wrapper, body.theme-rose .ai-message { background-color: #881337; border-color: #be123c; color: #fff1f2; }
+
+/* EKRAN YAPISI */
+.app-container { display: flex; height: 100vh; width: 100vw; }
+.sidebar { width: 260px; display: flex; flex-direction: column; border-right: 1px solid #e2e8f0; }
+.sidebar-header { padding: 16px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.brand-title h3 { font-size: 18px; font-weight: 700; color: #2563eb; }
+.brand-title p { font-size: 11px; opacity: 0.7; }
+
+.chat-list { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.chat-item { padding: 10px 12px; border-radius: 8px; font-size: 14px; cursor: pointer; border: 1px solid transparent; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.chat-item:hover { background: rgba(37, 99, 235, 0.1); }
+.chat-item.active { background: rgba(37, 99, 235, 0.2); border-color: #2563eb; font-weight: 600; }
+
+.sidebar-footer { padding: 16px; border-top: 1px solid rgba(0,0,0,0.08); }
+
+.chat-container { flex: 1; display: flex; flex-direction: column; }
+.chat-header { height: 60px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+
+/* SAĞ ÜST GERÇEK PROFiL LOGOSU */
+.profile-container { position: relative; }
+.profile-avatar-btn { cursor: pointer; display: flex; align-items: center; }
+.profile-avatar-btn img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #2563eb; transition: transform 0.2s; }
+.profile-avatar-btn img:hover { transform: scale(1.08); }
+
+.user-info-header { padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.user-info-header strong { font-size: 14px; }
+.user-info-header span { font-size: 12px; opacity: 0.7; }
+
+/* MENÜLER VE AÇILIR LİSTELER */
+.dropdown-menu, .attach-menu { 
+  display: none; 
+  position: absolute; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 10px; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25); 
+  z-index: 999; 
+  flex-direction: column; 
+}
+.dropdown-menu.active, .attach-menu.active { display: flex !important; }
+
+.dropdown-menu { right: 0; top: 50px; width: 220px; }
+
+/* + BUTONU VE ÜSTÜNDE AÇILAN MENÜ */
+.attach-wrapper { position: relative; display: flex; align-items: center; }
+.attach-menu { 
+  bottom: 45px; 
+  left: 0; 
+  width: 230px; 
+  padding: 6px 0;
+}
+
+.dropdown-item, .menu-item { padding: 10px 14px; text-decoration: none; font-size: 14px; border: none; background: transparent; text-align: left; cursor: pointer; color: inherit; display: flex; align-items: center; gap: 8px; width: 100%; }
+.dropdown-item:hover, .menu-item:hover { background: rgba(37, 99, 235, 0.15); }
+
+/* MESAJ BALONCUKLARI */
+.chat-messages { flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+.message { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 15px; line-height: 1.5; }
+.user-message { align-self: flex-end; background-color: #2563eb; color: white; }
+.ai-message { align-self: flex-start; border: 1px solid #cbd5e1; }
+.ai-message strong { display: block; margin-bottom: 4px; color: #2563eb; font-size: 13px; }
+
+.chat-input-container { padding: 16px 24px; }
+.input-wrapper { display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 24px; padding: 6px 12px; gap: 8px; }
+#messageInput { flex: 1; background: transparent; border: none; outline: none; color: inherit; padding: 8px; }
+.icon-btn { background: transparent; border: none; color: inherit; font-size: 20px; cursor: pointer; padding: 4px 8px; }
+
+.btn { background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 18px; cursor: pointer; font-size: 14px; }
+.btn-primary { width: 100%; border-radius: 8px; }
+.btn-danger { background: #dc2626; color: white; width: 100%; border-radius: 8px; padding: 10px; border:none; cursor:pointer;}
+.btn-settings { width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; background: rgba(0,0,0,0.05); color: inherit; border: none; text-align: left; }
+.btn-link { display: block; text-decoration: none; color: #2563eb; font-size: 14px; padding: 6px 0; font-weight: 600; }
+
+.auth-overlay, .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-overlay { display: none; }
+.modal-overlay.active { display: flex !important; }
+
+.auth-card { width: 380px; padding: 24px; border-radius: 12px; background: #ffffff; color: #0f172a; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.auth-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.auth-card form { display: flex; flex-direction: column; gap: 12px; }
+.auth-card input { padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; }
+
+.modal-card { width: 680px; border-radius: 12px; border: 1px solid; overflow: hidden; display: flex; flex-direction: column; }
+.modal-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.1); }
+.close-btn { background: transparent; border: none; color: inherit; font-size: 24px; cursor: pointer; }
+.modal-body { display: flex; height: 400px; }
+.settings-sidebar { width: 200px; border-right: 1px solid rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+.settings-tab-btn { padding: 12px; background: transparent; border: none; color: inherit; text-align: left; cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.03); }
+.settings-tab-btn.active { background: #2563eb; color: #fff; }
+.settings-content { flex: 1; padding: 20px; overflow-y: auto; }
+.tab-pane { display: none; flex-direction: column; gap: 12px; }
+.tab-pane.active { display: flex; }
+.tab-pane input, .tab-pane select { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: transparent; color: inherit; }
