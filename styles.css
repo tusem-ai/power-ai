@@ -330,3 +330,48 @@ button[class*="plus"],
   color: #f3f4f6 !important;
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
+/* ==========================================================
+   POWER AI - KAPSAMLI DÜZELTME (TÜM ELEMANLARI YAKALAR)
+   ========================================================== */
+
+/* 1. Ayarlar Penceresi Parlaklık ve Yazı Düzeltmesi */
+div[class*="modal"], div[class*="settings"], div[class*="dialog"] {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+div[class*="modal"] *, div[class*="settings"] * {
+  color: #ffffff !important; /* Yazıları görünür beyaz yapar */
+  opacity: 1 !important;
+}
+
+div[class*="modal"] input, div[class*="modal"] select {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border: 1px solid #334155 !important;
+}
+
+/* 2. Sohbet Giriş Alanı ve (+) Butonu Arka Plan Temizleme */
+div[class*="input"] button, form button {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+div[class*="input-container"], div[class*="input-box"], footer {
+  background-color: #1e293b !important;
+}
+
+/* 3. Mesaj Balonları Renk Ayarı */
+div[class*="user"], div[class*="sent"] {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+div[class*="bot"], div[class*="received"], div[class*="ai"] {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
