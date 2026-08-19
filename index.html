@@ -4,284 +4,213 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Power AI Asistanı</title>
-  <link rel="stylesheet" href="styles.css?v=10">
-  <link rel="stylesheet" href="./styles.css">
-  <style>
-  /* Ayarlar Menüsü İçi Görünürlük Düzeltmesi */
-  .settings-modal, .modal-content, [class*="modal"] {
-    background-color: #0f172a !important;
-    color: #ffffff !important;
-  }
-  .settings-modal *, .modal-content * {
-    color: #ffffff !important;
-  }
   
-  /* Plus (+) Butonundaki Mavi Arka Planı Kaldırma */
-  .chat-input button, button.add-btn, [class*="input"] button {
-    background: transparent !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-  }
-</style>
+  <!-- CSS Dosya Bağlantısı -->
+  <link rel="stylesheet" href="/styles.css?v=999">
+
+  <!-- TÜM TASARIMI VE AYARLARI GARANTİYE ALAN DİREKT GÖMÜLÜ CSS -->
+  <style>
+    /* 1. GENEL TEMA VE KARANLIK ARKA PLAN */
+    * {
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      background-color: #0b0f19 !important;
+      background-image: 
+        radial-gradient(at 50% 20%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
+        radial-gradient(at 80% 80%, rgba(124, 58, 237, 0.15) 0px, transparent 50%) !important;
+      background-attachment: fixed !important;
+      color: #f3f4f6 !important;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* 2. BAŞLIK VE LOGO CANLI MAVİ GRADYAN */
+    h1, .welcome-title, .hero-title {
+      background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.5px !important;
+    }
+
+    .logo, [class*="logo"] {
+      color: #60a5fa !important;
+      font-weight: 800 !important;
+    }
+
+    /* 3. AYARLAR MENÜSÜ & MODAL DÜZELTMELERİ (BULANIKLIK VE OKUNAMAMA GİDERİLDİ) */
+    div[class*="modal"], 
+    div[class*="settings"], 
+    div[class*="dialog"], 
+    [role="dialog"], 
+    .settings-modal, 
+    .modal-content, 
+    footer {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      filter: none !important;
+      opacity: 1 !important;
+      border: 1px solid #1e293b !important;
+      border-radius: 12px !important;
+    }
+
+    div[class*="modal"] *, 
+    div[class*="settings"] *, 
+    [role="dialog"] *, 
+    .settings-modal *, 
+    .modal-content * {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      text-shadow: none !important;
+    }
+
+    /* AYARLAR İÇİNDEKİ INPUT VE SELECT KUTULARI */
+    select, input, option {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+      border: 1px solid #475569 !important;
+      padding: 8px 12px !important;
+      border-radius: 8px !important;
+    }
+
+    /* 4. CHAT GİRİŞ ALANI VE (+) BUTONU MAVİ KUTU TEMİZLEME */
+    .chat-input button, 
+    button.add-btn, 
+    [class*="input"] button,
+    button[class*="plus"],
+    button[class*="add"] {
+      background: transparent !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    /* KARTLAR VE LİNKLER */
+    a, a:visited {
+      color: #60a5fa !important;
+    }
+
+    button:not([class*="plus"]):not(.add-btn) {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+      border: 1px solid #334155 !important;
+      border-radius: 8px !important;
+      padding: 8px 16px !important;
+      cursor: pointer !important;
+    }
+
+    button:hover {
+      background-color: #334155 !important;
+    }
+  </style>
 </head>
-<body class="theme-light">
+<body>
 
-  <!-- GİRİŞ ÖNCESİ KARŞILAMA VE TANITIM PORTALI -->
-  <div id="landingContainer" class="landing-overlay">
-    <!-- Üst Bar: Logo, Dil Seçimi ve Giriş/Kayıt Butonları -->
-    <header class="landing-header">
-      <div class="landing-brand">
-        <h2>⚡ Power AI</h2>
+  <!-- DİL SEÇİMİ VE ÜST BUTONLAR -->
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; max-width: 1200px; margin: 0 auto;">
+    <div class="logo">
+      <span style="font-size: 1.5rem;">⚡</span>
+      <span style="font-size: 1.4rem;">Power AI</span>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <select id="languageSelect">
+        <option value="tr">TR Türkçe</option>
+        <option value="en">EN English</option>
+      </select>
+      <button onclick="document.getElementById('loginModal').style.display='block'">Giriş Yap</button>
+      <button onclick="document.getElementById('registerModal').style.display='block'">Kayıt Ol</button>
+    </div>
+  </div>
+
+  <!-- ANA KARŞILAMA VE TANITIM ALANI -->
+  <main style="max-width: 900px; margin: 40px auto; padding: 0 20px; text-align: center;">
+    <h1>Power AI'a Hoş Geldiniz!</h1>
+    <p style="font-size: 1.2rem; color: #94a3b8; margin-top: 10px; margin-bottom: 40px;">
+      Yapay zekanın tüm gücü tek bir platformda.
+    </p>
+
+    <!-- ÖZELLİK KARTLARI -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left;">
+      
+      <div style="background: rgba(30, 41, 59, 0.7); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 1.8rem; margin-bottom: 10px;">🖼️ 📄 📹</div>
+        <h3 style="color: #60a5fa; margin-bottom: 8px;">Tüm Medyalarınızı Tek Noktadan Analiz Edin</h3>
+        <p style="color: #cbd5e1; font-size: 0.95rem;">Görselleri, videoları ve dokümanları tek tıkla yükleyin; Power AI sizin için özetlesin ve analiz etsin.</p>
       </div>
-      <div class="landing-nav">
-        <!-- Giriş Öncesi Dil Seçeneği -->
-        <select id="landingLangSelect" class="lang-dropdown">
-          <option value="tr">🇹🇷 Türkçe</option>
-          <option value="en">🇺🇸 English</option>
-          <option value="de">🇩🇪 Deutsch</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="it">🇮🇹 Italiano</option>
-          <option value="ru">🇷🇺 Русский</option>
-          <option value="ar">🇸🇦 العربية</option>
+
+      <div style="background: rgba(30, 41, 59, 0.7); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 1.8rem; margin-bottom: 10px;">🎵 ☁️</div>
+        <h3 style="color: #60a5fa; margin-bottom: 8px;">Sekmeler Arasında Kaybolmaya Son</h3>
+        <p style="color: #cbd5e1; font-size: 0.95rem;">+ menüsü sayesinde Google Drive dosyalarınıza doğrudan erişin, Suno AI entegrasyonu ile müzik üretin.</p>
+      </div>
+
+      <div style="background: rgba(30, 41, 59, 0.7); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 1.8rem; margin-bottom: 10px;">🎨 🌐 🛡️</div>
+        <h3 style="color: #60a5fa; margin-bottom: 8px;">Tamamen Size Özel Arayüz ve Güvenlik</h3>
+        <p style="color: #cbd5e1; font-size: 0.95rem;">30'dan fazla dil desteği ve zengin renk temalarıyla çalışma alanınızı özelleştirin. Verileriniz güvende.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- AYARLAR MENÜSÜ PANELİ -->
+  <section class="settings-modal" style="max-width: 900px; margin: 40px auto; padding: 25px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 10px;">
+      <span style="font-size: 1.3rem;">⚙️</span>
+      <h2 style="margin: 0; font-size: 1.4rem;">Ayarlar</h2>
+    </div>
+
+    <!-- SEKMELER -->
+    <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+      <button>⚙️ Genel</button>
+      <button>🎨 Görünüm</button>
+      <button>🔒 Gizlilik & Güvenlik</button>
+      <button>🔑 Şifreler</button>
+    </div>
+
+    <!-- AYAR SEÇENEKLERİ -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div>
+        <h4 style="margin-bottom: 8px; color: #94a3b8;">Sistem Dili Seçimi</h4>
+        <label>Tercih Edilen Dil: </label>
+        <select>
+          <option>TR Türkçe</option>
+          <option>EN English</option>
         </select>
-        <button id="openSignInBtn" class="btn btn-outline">Giriş Yap</button>
-        <button id="openSignUpBtn" class="btn btn-primary-landing">Kayıt Ol</button>
-      </div>
-    </header>
-
-    <!-- Tanıtım Sahnesi ve Döngüsel Kartlar (Carousel) -->
-    <main class="landing-hero">
-      <div class="hero-text-wrapper">
-        <h1 id="landingWelcomeTitle">Power AI'a Hoş Geldiniz!</h1>
-        <p id="landingWelcomeSub">Yapay zekanın tüm gücü tek bir platformda.</p>
       </div>
 
-      <!-- DÖNGÜSEL (CAROUSEL) TANITIM KARTLARI -->
-      <div class="carousel-container">
-        <!-- Kart 1 -->
-        <div class="carousel-card active">
-          <div class="card-icon">🖼️📄🎥</div>
-          <h3 id="card1Title">Tüm Medyalarınızı Tek Noktadan Analiz Edin</h3>
-          <p id="card1Desc">Görselleri, videoları ve dokümanları tek tıkla yükleyin; Power AI sizin için özetlesin ve analiz etsin.</p>
-        </div>
-        <!-- Kart 2 -->
-        <div class="carousel-card">
-          <div class="card-icon">🎵☁️</div>
-          <h3 id="card2Title">Sekmeler Arasında Kaybolmaya Son</h3>
-          <p id="card2Desc">+ menüsü sayesinde Google Drive dosyalarınıza doğrudan erişin, Suno AI entegrasyonu ile müzik üretin.</p>
-        </div>
-        <!-- Kart 3 -->
-        <div class="carousel-card">
-          <div class="card-icon">🎨🌐🛡️</div>
-          <h3 id="card3Title">Tamamen Size Özel Arayüz ve Güvenlik</h3>
-          <p id="card3Desc">30'dan fazla dil desteği ve zengin renk temalarıyla çalışma alanınızı özelleştirin. Verileriniz güvende.</p>
+      <div>
+        <h4 style="margin-bottom: 8px; color: #94a3b8;">Renk ve Temalar</h4>
+        <label>Arayüz Teması: </label>
+        <select>
+          <option>Koyu (Gece Mavisi)</option>
+          <option>Aydınlık (Klasik Mavi)</option>
+        </select>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 8px; color: #94a3b8;">Gizlilik ve Veri Güvenliği</h4>
+        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 10px;">Hesabınızın gizlilik ayarlarını doğrudan yönetmek için aşağıdaki yönlendirme bağlantılarını kullanabilirsiniz:</p>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <a href="#">🥊 Google Gizlilik Kontrolü Yap</a>
+          <a href="#">📊 Veri ve Gizlilik Yönetimi</a>
+          <a href="#">🔑 Bağlı Uygulamalar ve İzinler</a>
         </div>
       </div>
 
-      <!-- Carousel Geçiş Noktaları -->
-      <div class="carousel-dots">
-        <span class="dot active" data-slide="0"></span>
-        <span class="dot" data-slide="1"></span>
-        <span class="dot" data-slide="2"></span>
-      </div>
-    </main>
-  </div>
-
-  <!-- GİRİŞ / KAYIT PENCERESİ (MODAL POP-UP) -->
-  <div id="authContainer" class="auth-overlay" style="display: none;">
-    <div class="auth-card">
-      <div class="auth-card-header">
-        <h3 id="authTitle">⚡ Power AI - Giriş Yap</h3>
-        <button id="closeAuthModal" class="close-btn">&times;</button>
-      </div>
-      <form id="authForm">
-        <input type="email" id="authEmail" placeholder="E-posta Adresiniz" required>
-        <input type="password" id="authPassword" placeholder="Şifreniz" required>
-        <button type="submit" id="authSubmitBtn" class="btn btn-primary">Giriş Yap</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ANA UYGULAMA (Giriş Yapıldıktan Sonra Açılır) -->
-  <div id="appContainer" class="app-container" style="display: none;">
-    <!-- SOL MENÜ (SIDEBAR) -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="brand-title">
-          <h3>⚡ Power AI</h3>
-          <p>Yapay Zeka Asistanı</p>
-        </div>
-        <button id="newChatButton" class="btn btn-primary">+ Yeni Sohbet</button>
-      </div>
-
-      <div id="chatList" class="chat-list"></div>
-
-      <div class="sidebar-footer">
-        <button id="openSettingsBtn" class="btn-settings">⚙️ Ayarlar</button>
-      </div>
-    </aside>
-
-    <!-- SOHBET ALANI -->
-    <main class="chat-container">
-      <header class="chat-header">
-        <h2 id="chatHeaderTitle">Power AI</h2>
-        
-        <!-- SAĞ ÜST GERÇEK HESAP LOGOSU -->
-        <div class="profile-container">
-          <div id="userProfileBtn" class="profile-avatar-btn" title="Hesap Profili">
-            <img id="userAvatarImg" src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff&rounded=true" alt="Profil">
-          </div>
-          <div id="profileDropdown" class="dropdown-menu">
-            <div class="user-info-header">
-              <strong id="displayUserName">Kullanıcı</strong>
-              <span id="displayUserEmail">kullanici@gmail.com</span>
-            </div>
-            <hr>
-            <a href="https://myaccount.google.com/profile" target="_blank" class="dropdown-item">👤 Profil Ayarları</a>
-            <a href="https://myaccount.google.com/security" target="_blank" class="dropdown-item">🛡️ Güvenlik & Şifreler</a>
-            <a href="https://accounts.google.com/AddSession" target="_blank" class="dropdown-item">➕ Başka Hesap Ekle</a>
-            <hr>
-            <button id="logoutBtn" class="dropdown-item logout-item">🚪 Oturumu Kapat</button>
-          </div>
-        </div>
-      </header>
-
-      <!-- MESAJLAR -->
-      <div id="chatMessages" class="chat-messages">
-        <div class="message ai-message">
-          <strong>⚡ Power AI</strong>
-          <div>Merhaba! Ben Power AI yapay zeka asistanınızım. Size bugün nasıl yardımcı olabilirim?</div>
-        </div>
-      </div>
-
-      <!-- İNPUT VE EKLENTİ ALANI -->
-      <footer class="chat-input-container">
-        <!-- Gizli Dosya Inputları -->
-        <input type="file" id="fileInputImg" accept="image/*" style="display:none">
-        <input type="file" id="fileInputMedia" accept="video/*,audio/*" style="display:none">
-        <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt" style="display:none">
-        <input type="file" id="fileInputOther" style="display:none">
-
-        <div class="input-wrapper">
-          <div class="attach-wrapper">
-            <!-- + BUTONU VE ÜSTÜNDE AÇILAN SIRALI MENÜ -->
-            <button id="attachPlusButton" class="icon-btn" type="button" title="Eklenti & Yönlendirmeler">＋</button>
-
-            <div id="attachMenu" class="attach-menu">
-              <button type="button" class="menu-item" id="btnUploadImg">🖼️ Görsel Yükle</button>
-              <button type="button" class="menu-item" id="btnUploadMedia">🎥 Medya Ekle</button>
-              <button type="button" class="menu-item" id="btnUploadDoc">📄 Belge Ekle</button>
-              <button type="button" class="menu-item" id="btnCreateMusic">🎵 Müzik Oluştur (Suno AI)</button>
-              <button type="button" class="menu-item" id="btnGoogleDrive">☁️ Google Drive</button>
-              <button type="button" class="menu-item" id="btnUploadOther">📁 Diğer Yüklemeler</button>
-            </div>
-          </div>
-
-          <input type="text" id="messageInput" placeholder="Power AI'ya bir şeyler sorun..." autocomplete="off">
-          <button id="sendButton" class="btn btn-send">Gönder</button>
-        </div>
-      </footer>
-    </main>
-  </div>
-
-  <!-- AYARLAR MODALI -->
-  <div id="settingsModal" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>⚙️ Ayarlar</h3>
-        <button id="closeSettingsBtn" class="close-btn" type="button">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="settings-sidebar">
-          <button class="settings-tab-btn active" data-tab="tab-genel">⚙️ Genel</button>
-          <button class="settings-tab-btn" data-tab="tab-gorunum">🎨 Görünüm</button>
-          <button class="settings-tab-btn" data-tab="tab-gizlilik">🔒 Gizlilik & Güvenlik</button>
-          <button class="settings-tab-btn" data-tab="tab-sifreler">🔑 Şifreler</button>
-        </div>
-        <div class="settings-content">
-          <!-- 1. GENEL TAB -->
-          <div id="tab-genel" class="tab-pane active">
-            <h4>Sistem Dili Seçimi</h4>
-            <label for="languageSelect">Tercih Edilen Dil:</label>
-            <select id="languageSelect">
-              <option value="tr">🇹🇷 Türkçe</option>
-              <option value="en">🇺🇸 English (İngilizce)</option>
-              <option value="de">🇩🇪 Deutsch (Almanca)</option>
-              <option value="fr">🇫🇷 Français (Fransızca)</option>
-              <option value="es">🇪🇸 Español (İspanyolca)</option>
-              <option value="it">🇮🇹 Italiano (İtalyanca)</option>
-              <option value="pt">🇵🇹 Português (Portekizce)</option>
-              <option value="ru">🇷🇺 Русский (Rusça)</option>
-              <option value="zh">🇨🇳 中文 (Çince)</option>
-              <option value="ja">🇯🇵 日本語 (Japonca)</option>
-              <option value="ko">🇰🇷 한국어 (Korece)</option>
-              <option value="ar">🇸🇦 العربية (Arapça)</option>
-              <option value="nl">🇳🇱 Nederlands (Hollandaca)</option>
-              <option value="pl">🇵🇱 Polski (Lehçe)</option>
-              <option value="sv">🇸🇪 Svenska (İsveççe)</option>
-              <option value="el">🇬🇷 Ελληνικά (Yunan)</option>
-              <option value="hi">🇮🇳 हिन्दी (Hintçe)</option>
-              <option value="fa">🇮🇷 فارسی (Farsça)</option>
-              <option value="he">🇮🇱 עברית (İbranice)</option>
-              <option value="da">🇩🇰 Dansk (Danca)</option>
-              <option value="fi">🇫🇮 Suomi (Fince)</option>
-              <option value="no">🇳🇴 Norsk (Norveççe)</option>
-              <option value="uk">🇺🇦 Українська (Ukraynaca)</option>
-              <option value="ro">🇷🇴 Română (Romence)</option>
-              <option value="hu">🇭🇺 Magyar (Macarca)</option>
-              <option value="cs">🇨🇿 Čeština (Çekçe)</option>
-              <option value="th">🇹🇭 ไทย (Tayca)</option>
-              <option value="vi">🇻🇳 Tiếng Việt (Vietnamca)</option>
-              <option value="id">🇮🇩 Bahasa Indonesia (Endonezyaca)</option>
-            </select>
-          </div>
-
-          <!-- 2. GÖRÜNÜM TAB -->
-          <div id="tab-gorunum" class="tab-pane">
-            <h4>Renk ve Temalar</h4>
-            <label for="themeSelect">Arayüz Teması:</label>
-            <select id="themeSelect">
-              <option value="theme-light">☀️ Aydınlık (Klasik Mavi)</option>
-              <option value="theme-dark">🌙 Karanlık (Gece Slate)</option>
-              <option value="theme-emerald">🌲 Zümrüt Yeşili</option>
-              <option value="theme-purple">🔮 Gece Moru</option>
-              <option value="theme-amber">🟧 Amber Sıcak</option>
-              <option value="theme-ocean">🌊 Okyanus Mavisi</option>
-              <option value="theme-rose">🌸 Rose Gold / Pembe</option>
-            </select>
-          </div>
-
-          <!-- 3. GİZLİLİK VE GÜVENLİK TAB -->
-          <div id="tab-gizlilik" class="tab-pane">
-            <h4>Gizlilik ve Veri Güvenliği</h4>
-            <p>Hesabınızın gizlilik ayarlarını doğrudan yönetmek için aşağıdaki yönlendirme bağlantılarını kullanabilirsiniz:</p>
-            <div class="setting-links">
-              <a href="https://myaccount.google.com/privacycheckup" target="_blank" class="btn-link">🛡️ Google Gizlilik Kontrolü Yap</a>
-              <a href="https://myaccount.google.com/data-and-privacy" target="_blank" class="btn-link">📊 Veri ve Gizlilik Yönetimi</a>
-              <a href="https://myaccount.google.com/permissions" target="_blank" class="btn-link">🔐 Bağlı Uygulamalar ve İzinler</a>
-            </div>
-            <hr style="margin: 10px 0;">
-            <button id="clearDataBtn" class="btn btn-danger">🗑️ Yerel Sohbet Geçmişini Temizle</button>
-          </div>
-
-          <!-- 4. ŞİFRELER TAB -->
-          <div id="tab-sifreler" class="tab-pane">
-            <h4>Şifre Yönetimi ve Güvenlik</h4>
-            <form id="changePassForm" style="display:flex; flex-direction:column; gap:8px;">
-              <input type="password" id="currPass" placeholder="Mevcut Şifre" required>
-              <input type="password" id="newPass" placeholder="Yeni Şifre" required>
-              <button type="submit" class="btn btn-primary">Şifreyi Güncelle</button>
-            </form>
-            <hr style="margin:12px 0;">
-            <p>Kayıtlı tüm oturum ve şifrelerinize erişmek için:</p>
-            <a href="https://passwords.google.com/" target="_blank" class="btn-link">🔑 Kayıtlı Şifre Yöneticisine Git (Google Passwords)</a>
-          </div>
-        </div>
+      <div style="margin-top: 10px;">
+        <button style="background-color: #ef4444 !important; border-color: #dc2626 !important;">🗑️ Yerel Sohbet Geçmişini Temizle</button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script src="script.js"></script>
 </body>
 </html>
