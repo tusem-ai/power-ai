@@ -238,3 +238,35 @@ button:hover, .btn-primary:hover {
   width: 24px !important;
   border-radius: 10px !important;
 }
+
+
+/* ==========================================================
+   POWER AI - GÜVENLİ ARAYÜZ YENİLEME (EN ALTA EKLENEN KISIM)
+   ========================================================== */
+
+/* Arka plana yapay zeka temalı modern renk ve ışık ekleme */
+body {
+  background: #0b0f19 !important;
+  background-image: 
+    radial-gradient(at 50% 20%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(124, 58, 237, 0.15) 0px, transparent 50%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Karşılama kutusunu cam (glassmorphism) ve neon ışıklı yapma */
+div[class*="card"], div[class*="slide"], div[class*="box"] {
+  background: rgba(17, 24, 39, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
+              0 0 30px rgba(37, 99, 235, 0.2) !important;
+  border-radius: 20px !important;
+}
+
+/* Başlığa canlı mavi/beyaz gradyan renk verme */
+h1 {
+  background: linear-gradient(135deg, #ffffff 40%, #60a5fa 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
