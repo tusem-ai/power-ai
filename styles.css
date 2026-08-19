@@ -375,3 +375,47 @@ div[class*="bot"], div[class*="received"], div[class*="ai"] {
   background-color: #1e293b !important;
   color: #f8fafc !important;
 }
+/* ==========================================================
+   POWER AI - KESİN ÇÖZÜM (MEVCUT KODLARI BOZMADAN EZER)
+   ========================================================== */
+
+/* 1. Ayarlar Modalı / Bulanıklık ve Okunmama Sorunu */
+iframe, dialog, [role="dialog"], .modal-overlay, .settings-modal {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[class*="modal"] *, [class*="setting"] *, [class*="dialog"] * {
+  color: #ffffff !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+[class*="modal"] select, [class*="setting"] select,
+[class*="modal"] input, [class*="setting"] input {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border: 1px solid #475569 !important;
+}
+
+/* 2. Chat Giriş Alanındaki (+) Butonunun Mavi Kutusunu Kaldırma */
+button[class*="plus"], 
+button[class*="add"], 
+.chat-input button:first-child,
+div[class*="input"] button:first-child {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 3. Sohbet Baloncukları Renkleri */
+[class*="message"][class*="user"], [class*="chat-bubble-user"] {
+  background-color: #2563eb !important; /* Kullanıcı mesaj rengi */
+  color: #ffffff !important;
+}
+
+[class*="message"][class*="bot"], [class*="chat-bubble-bot"], [class*="message"][class*="ai"] {
+  background-color: #1e293b !important; /* AI mesaj rengi */
+  color: #f8fafc !important;
+}
