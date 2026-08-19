@@ -270,3 +270,63 @@ h1 {
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
+/* ==========================================================
+   POWER AI - ÖZEL ARAYÜZ DÜZELTMELERİ (GÜVENLİ EKLEME)
+   ========================================================== */
+
+/* 1. Ayarlar Penceresi Okunabilirlik ve Netlik Düzeltmesi */
+.modal, [class*="modal"], [class*="settings"] {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.modal *, [class*="modal"] * {
+  color: #f3f4f6 !important; /* Tüm yazıları net beyaz yapar */
+  opacity: 1 !important;
+}
+
+.modal input, .modal select {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+  border: 1px solid #374151 !important;
+}
+
+/* 2. Sohbet Giriş Alanındaki (+) Butonu Mavi Arka Plan Temizleme */
+.input-container button, 
+[class*="input"] button, 
+button[class*="plus"],
+.chat-input-box button {
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.input-container, [class*="input-wrapper"], .chat-input-box {
+  background-color: #1f2937 !important; /* İnput alanının arkasını koyu yapar */
+}
+
+/* 3. Logo ve Başlık Tasarımı */
+.logo, [class*="logo"] {
+  font-weight: 900 !important;
+  letter-spacing: 0.5px !important;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* 4. Mesaj Baloncuklarının Rengi */
+.message.user, [class*="user-message"] {
+  background: #2563eb !important; /* Kullanıcı mesaj rengi */
+  color: #ffffff !important;
+}
+
+.message.bot, [class*="bot-message"], [class*="ai-message"] {
+  background: #1f2937 !important; /* AI mesaj rengi */
+  color: #f3f4f6 !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
