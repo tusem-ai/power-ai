@@ -2,20 +2,16 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT || 10000;
 
 app.use(express.json());
 
-// Projedeki tüm klasörleri ve index.html dosyasını otomatik tarar
+// Ana klasördeki statik dosyaları (index.html, style.css vb.) dışarı sunar
 app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'), (err) => {
-    if (err) {
-      res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    }
-  });
+// Ana sayfaya girildiğinde direkt ana klasördeki index.html dosyasını gönderir
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
