@@ -3,7 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const mammoth = require('mammoth');
 
-const port = 8001;
+const PORT = process.env.PORT || 8001;
+
+app.listen(PORT, () => {
+    console.log(`Power AI Chatbot çalışıyor: http://localhost:${PORT}`);
+});
 const rootDir = __dirname;
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
